@@ -1,0 +1,3 @@
+[submodule "metacatalog-api"]
+	path = src/metacatalog-api
+	url = git@github.com:vforwater/metacatalog-api
