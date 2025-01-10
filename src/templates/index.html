@@ -23,7 +23,7 @@
     </style>
 
 </head>
-<body class="h-full">
+<body class="h-screen">
     <div class="min-h-full">
         <!-- Navigation -->
         <nav class="bg-gray-800">
@@ -37,7 +37,7 @@
 
                         <div class="hidden md:block">
                             <div class="ml-10 flex items-baseline space-x-4">
-                                <a class="px-3 py-2 text-sm font-medium text-gray-300 hover:text-white cursor-pointer" hx-get="{{ path }}entries.html?embedded=true" hx-target="#main-content" hx-swap="innerHTML">List All</a>
+                                <a class="px-3 py-2 text-sm font-medium text-gray-300 hover:text-white cursor-pointer" hx-get="{{ path }}page/entries.html?embedded=true" hx-target="#main-content" hx-swap="innerHTML">List All</a>
                             </div>
                         </div>
                         <div class="hidden md:block">
@@ -51,24 +51,7 @@
         </nav>
 
         <main>
-            <!-- <div id="map-content" class="mx-auto" hx-trigger="load" hx-get="{{ path }}locations.html" hx-swap="innerHTML">
-            </div>
-            <div id="action-area" class="mt-1 w-full content-center">
-                <form 
-                    class="w-fit mx-auto"
-                    hx-get="{{ path }}entries.html" 
-                    hx-trigger="submit, input from:#search delay:800ms"
-                    hx-target="#main-content" 
-                    hx-swap="innerHTML"
-                    hx-on::after-request="updateEntryLayer(document.getElementById('search').value)"
-                >
-                    <input 
-                        type="text" name="search" id="search" placeholder="Search for data" 
-                        class="shadow appearance-none border rounded w-96 py-2 px-3 leading-tight focus:outline-none focus:shadow-outline"
-                    />
-
-                </form>
-            </div> -->
+            
             <div id="main-content" class="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
                 <h1 class="text-3xl font-bold tracking-tight text-gray-900">Welcome to Creative.</h1>
                 <p class="mt-5 p-5 text-xl text-gray-500">

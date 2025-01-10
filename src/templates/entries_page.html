@@ -1,0 +1,27 @@
+<div class="flex h-full">
+    <!-- Left column: Entries list -->
+    <div class="pr-4 w-1/2 border-r border-gray-200">
+        <div class="pb-4">
+            <h2 class="text-lg font-semibold text-gray-800">Entries</h2>
+        </div>
+        <div hx-get="{{path}}creative/entries.html" 
+             hx-trigger="load"
+             hx-swap="innerHTML"
+             class="divide-y divide-gray-200">
+        </div>
+    </div>
+
+    <!-- Right column: Entry details -->
+    <div class="w-1/2">
+        <div id="detail" class="h-96 pl-4 overflow-y-auto">
+            <div class="flex items-center justify-center h-full text-gray-500">
+                <div class="text-center">
+                    <svg class="mx-auto h-12 w-12" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                    </svg>
+                    <h3 class="mt-2 text-sm font-medium">Select an entry to view details</h3>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
