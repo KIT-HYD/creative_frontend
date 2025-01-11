@@ -1,4 +1,5 @@
-from fastapi import Request, APIRouter
+from typing import Literal
+from fastapi import Request, APIRouter, HTTPException
 from starlette.middleware.cors import CORSMiddleware
 from fastapi.templating import Jinja2Templates
 from pathlib import Path
@@ -8,7 +9,7 @@ from metacatalog_api.server import app, server
 from metacatalog_api.router.api.read import read_router as api_read_router
 from metacatalog_api.router.api.create import create_router as api_create_router
 from metacatalog_api.apps.explorer.create import create_router as explorer_create
-from metacatalog_api.apps.explorer.read import explorer_router
+from metacatalog_api.apps.explorer.read import explorer_router, templates as explorer_templates
 from metacatalog_api.apps.explorer import static_files
 
 
@@ -45,7 +46,24 @@ def entries_list(request: Request, limit: int = None, offset: int = None):
 
 @creative_pages.get('/page/entries.html')
 def get_entries_page(request: Request):
-    return creative_templates.TemplateResponse(request=request, name="entries_page.html", context={"path": server.app_prefix})
+    return creative_templates.TemplateResponse(request=request, name="entries_page.html", context={"path": server.app_prefix, "root_path": server.uri_prefix})
+
+@creative_pages.get('/page/entries/{entry_id}.html')
+def get_entry_page(request: Request, entry_id: int):
+    return creative_templates.TemplateResponse(request=request, name="entry_page.html", context={"path": server.app_prefix, "entry_id": entry_id})
+
+
+@creative_pages.get('/creative/entries/{entry_id}.xml')
+def get_entry_xml_metadata(request: Request, entry_id: int, template: Literal['default', 'zku', 'dublin'] = 'default'):
+    entries = core.entries(ids=entry_id)
+    if template == 'default':
+        return explorer_templates.TemplateResponse(request=request, name="entry.xml", context={"entry": entries[0], "path": server.app_prefix}, media_type='application/xml')
+    elif template == 'zku':
+        return creative_templates.TemplateResponse(request=request, name="entry.radar.zku.xml", context={"entry": entries[0], "path": server.app_prefix})
+    elif template == 'dublin':
+        return creative_templates.TemplateResponse(request=request, name="entry.dublin.xml", context={"entry": entries[0], "path": server.app_prefix}, media_type='application/xml')
+    else:
+        raise HTTPException(status_code=404, detail=f"Template {template} not found")
 
 # add the API
 app.include_router(api_read_router)
