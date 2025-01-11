@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<metadata xmlns:dc="http://purl.org/dc/elements/1.1/"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://purl.org/dc/elements/1.1/ http://dublincore.org/schemas/xmls/qdc/2008/02/11/dc.xsd">
+    <dc:title>{{ entry.title }}</dc:title>
+    <dc:description>{{ entry.abstract }}</dc:description>
+    {% if entry.publication %}
+    <dc:date>{{ entry.publication }}</dc:date>
+    {% endif %}
+    {% if entry.author.is_organisation %}
+    <dc:creator>{{ entry.author.organisation_name }}</dc:creator>
+    {% else %}
+    <dc:creator>{{ entry.author.first_name }} {{ entry.author.last_name }}</dc:creator>
+    {% endif %}
+    {% for coauthor in entry.coAuthors %}
+    <dc:contributor>{{ coauthor.first_name }} {{ coauthor.last_name }}</dc:contributor>
+    {% endfor %}
+    {% if entry.keywords %}
+    {% for keyword in entry.keywords %}
+    <dc:subject>{{ keyword }}</dc:subject>
+    {% endfor %}
+    {% endif %}
+    {% if entry.license %}
+    <dc:rights>{{ entry.license.title }} ({{ entry.license.short_title }}) - {{ entry.license.summary }}</dc:rights>
+    <dc:rights>{{ entry.license.link }}</dc:rights>
+    {% endif %}
+    {% if entry.variable.keyword %}
+    <dc:relation>{{ entry.variable.keyword.full_path }} - {{ entry.variable.keyword.thesaurus.title }}</dc:relation>
+    {% endif %}
+    {% if entry.embargo %}
+    <dc:accessRights>Embargoed until {{ entry.embargo_end }}</dc:accessRights>
+    {% else %}
+    <dc:accessRights>Open Access</dc:accessRights>
+    {% endif %}
+    <dc:identifier>{{ entry.uuid }}</dc:identifier>
+</metadata>
