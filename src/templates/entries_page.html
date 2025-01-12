@@ -1,6 +1,25 @@
-<div class="flex h-full">
+<script>
+    function detailToggle() {
+        return {
+            showDetail: false,
+            init() {
+                document.body.addEventListener('htmx:beforeRequest', (e) => {
+                    if (e.detail.target.id === 'detail') {
+                        this.showDetail = true;
+                    }
+                });
+                document.body.addEventListener('htmx:afterSwap', (e) => {
+                    if (e.target.id === 'detail' && e.target.innerHTML === '') {
+                        this.showDetail = false;
+                    }
+                });
+            }
+        }
+    }
+</script>
+<div class="flex h-full" x-data="detailToggle()">
     <!-- Left column: Entries list -->
-    <div class="pr-4 w-1/2 border-r border-gray-200">
+    <div class="pr-4 transition-all duration-400 border-r border-gray-200" :class="showDetail ? 'w-1/2' : 'w-full' ">
         <div class="pb-4">
             <h2 class="text-lg font-semibold text-gray-800">Entries</h2>
         </div>
@@ -12,8 +31,11 @@
     </div>
 
     <!-- Right column: Entry details -->
-    <div class="w-1/2">
-        <div id="detail" class="h-full pl-4 overflow-y-auto">
+    <div :class="showDetail ? 'w-1/2' : 'w-0'" class="transition-all duration-400 overflow-hidden">
+        <div 
+            id="detail" 
+            class="h-full pl-4 overflow-y-auto"
+        >
             <div class="flex items-center justify-center h-full text-gray-500">
                 <div class="text-center">
                     <svg class="mx-auto h-12 w-12" fill="none" stroke="currentColor" viewBox="0 0 24 24">
