@@ -2,8 +2,9 @@ FROM python:3.12
 
 COPY metacatalog-api /app/metacatalog-api
 WORKDIR /app/metacatalog-api
-RUN pip install --upgrade pip & \
-    pip install -e .
+RUN pip install --upgrade pip && \
+    pip install -e . && \
+    pip install debugpy
 
 COPY src /app
 WORKDIR /app
