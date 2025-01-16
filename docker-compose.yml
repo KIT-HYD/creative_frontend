@@ -20,6 +20,8 @@ services:
     build: .
     environment:
       METACATALOG_URI: postgresql://postgres:postgres@db:5432/metacatalog
+      DATA_DIRECTORY: /data
+      TEMPORARY_DIRECTORY: /temp
     links:
       - db
     depends_on:
@@ -27,10 +29,13 @@ services:
         condition: service_healthy
     ports:
       - 8008:8000
+      - 5678:5678
     volumes:
       # for development, link the source code directly
       - ./metacatalog-api:/app/metacatalog-api
       - ./src:/app
+      - ./data/dev/files:/data
+      - ./data/dev/tmp:/temp
     # only for development
-    command: "python creative_uploader.py --reload=True"
-    #command: "python creative_uploader.py"
+    #command: "python creative_uploader.py --reload=True"
+    command: "python -m debugpy --listen 0.0.0.0:5678 metacatalog-api/metacatalog_api/default_server.py --reload=True"
