@@ -37,5 +37,5 @@ services:
       - ./data/dev/files:/data
       - ./data/dev/tmp:/temp
     # only for development
-    #command: "python creative_uploader.py --reload=True"
-    command: "python -m debugpy --listen 0.0.0.0:5678 metacatalog-api/metacatalog_api/default_server.py --reload=True"
+    command: "python -m debugpy --listen 0.0.0.0:5678 creative_uploader.py --reload=True"
+    #command: "python -m debugpy --listen 0.0.0.0:5678 metacatalog-api/metacatalog_api/default_server.py --reload=True"

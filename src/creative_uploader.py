@@ -39,7 +39,7 @@ def index(request: Request):
 
 
 # we replace some of the default explorer pages with our own
-@creative_pages.get('/creative/entries.html')
+@creative_pages.get('/entries.html')
 def entries_list(request: Request, limit: int = None, offset: int = None):
     entries = core.entries(limit=limit, offset=offset)
     return creative_templates.TemplateResponse(request=request, name="entries.html", context={"path": server.app_prefix, "entries": entries})
@@ -53,7 +53,7 @@ def get_entry_page(request: Request, entry_id: int):
     return creative_templates.TemplateResponse(request=request, name="entry_page.html", context={"path": server.app_prefix, "entry_id": entry_id})
 
 
-@creative_pages.get('/creative/entries/{entry_id}.xml')
+@creative_pages.get('/entries/{entry_id}.xml')
 def get_entry_xml_metadata(request: Request, entry_id: int, template: Literal['default', 'zku', 'dublin'] = 'default'):
     entries = core.entries(ids=entry_id)
     if template == 'default':
@@ -73,7 +73,7 @@ app.include_router(api_create_router)
 app.mount(f"{server.app_prefix}static", static_files, name="static")
 app.include_router(explorer_router, prefix=f"/{server.app_name}")
 app.include_router(explorer_create, prefix=f"/{server.app_name}")
-app.include_router(creative_pages, prefix=f"/{server.app_name}")
+app.include_router(creative_pages, prefix=f"/{server.app_name}/creative")
 
 if __name__ == '__main__':
     # run the server

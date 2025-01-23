@@ -10,6 +10,22 @@
             "justMyCode": false
         },
         {
+            "name": "CREATIVE APP",
+            "type": "debugpy",
+            "request": "attach",
+            "connect": {
+                "host": "localhost",
+                "port": 5678
+            },
+            "pathMappings": [
+                {
+                    "localRoot": "${workspaceFolder}/src",
+                    "remoteRoot": "/app"
+                }
+            ],
+            "justMyCode": false
+        },
+        {
             "name": "Running Frontend",
             "type": "debugpy",
             "request": "attach",

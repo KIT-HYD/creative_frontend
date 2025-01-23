@@ -32,12 +32,17 @@
                     <div class="flex items-center">
 
                         <div class="flex-shrink-0 items-center justify-center">
-                            <a href="{{ path }}" class="text-gray-100 hover:text-white font-semibold text-lg">CREATIVE MetaData</a>
+                            <a href="/" class="text-gray-100 hover:text-white font-semibold text-lg">CREATIVE MetaData</a>
                         </div>
 
                         <div class="hidden md:block">
                             <div class="ml-10 flex items-baseline space-x-4">
-                                <a class="px-3 py-2 text-sm font-medium text-gray-300 hover:text-white cursor-pointer" hx-get="{{ path }}page/entries.html?embedded=true" hx-target="#main-content" hx-swap="innerHTML">List All</a>
+                                <a 
+                                    class="px-3 py-2 text-sm font-medium text-gray-300 hover:text-white cursor-pointer" 
+                                    hx-get="{{ path }}creative/page/entries.html?embedded=true" 
+                                    hx-target="#main-content" 
+                                    hx-swap="innerHTML"
+                                >List All</a>
                             </div>
                         </div>
                         <div class="hidden md:block">
